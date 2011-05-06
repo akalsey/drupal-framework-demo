@@ -76,7 +76,7 @@ function frameworkdemo_answer() {
     $tropo->say($translation['responseData']['translatedText'], array('voice' => $details['voice']));
   }
   $tropo->ask(variable_get('frameworkdemo_question', 'Have you used Drupal before? Answer yes or no.'), array('voice' => 'Victor', 'choices' => variable_get('frameworkdemo_grammar', 'yes, no')));
-  $tropo->say(variable_get('frameworkdemo_thanks', 'Thanks for participating!'), array('voice' => 'Victor'));
+  $tropo->say(variable_get('frameworkdemo_thanks', 'Thanks for participating! Goodbye.'), array('voice' => 'Victor'));
 
   $_SESSION['caller'] = $number;
   // Tell Tropo that when this document is done, redirect to frameworkdemo/thanks
@@ -96,7 +96,7 @@ function frameworkdemo_thanks() {
 
   $tropo = new Tropo();
   // Message allows us to send a text message.
-  //$tropo->message(variable_get('frameworkdemo_message', "Thanks for coming to the talk. Want to try Tropo? It's free for development at Tropo.com"), array('to' => $_SESSION['caller'], 'network' => 'SMS'));
+  $tropo->message(variable_get('frameworkdemo_message', "Thanks for coming to the talk. Want to try Tropo? It's free for development at Tropo.com"), array('to' => $_SESSION['caller'], 'network' => 'SMS'));
   // Save the number as a node
   frameworkdemo_save($_SESSION['caller'], $answer);
   
@@ -156,7 +156,7 @@ function frameworkdemo_settings() {
   $form['frameworkdemo_thanks'] = array(
     '#type' => 'textfield',
     '#title' => t('Thanks'),
-    '#default_value' => variable_get('frameworkdemo_thanks', 'Thanks for participating!'),
+    '#default_value' => variable_get('frameworkdemo_thanks', 'Thanks for participating! Goodbye.'),
     '#description' => t('How should Drupal sign off the call?'),
   );
 
